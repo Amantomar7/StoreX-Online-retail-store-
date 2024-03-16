@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+<head>
+  <title>
+    {% block title %}
+      Home
+    {% endblock %}
+  </title>
+</head>
+
+<body>
+  {% block main %}
+    <div class="container">
+      <h1>Register Supplier</h1>
+      <form action="/registerSupplier" method="POST">
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Supplier Name</label>
+          <input type="text" class="form-control" name="Name" id="Name" placeholder="Supplier Name" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <input type="text" class="form-control" name="Email" id="Email" placeholder="Email" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Address</label>
+          <input type="text" class="form-control" name="Address" id="Address" placeholder="Address" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Pincode</label>
+          <input type="text" class="form-control" name="Pincode" id="Pincode" placeholder="Pincode" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Phone</label>
+          <textarea class="form-control" name="Phone" id="Phone" rows="1"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Password</label>
+          <textarea class="form-control" name="Password" id="Password" rows="1"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  {% endblock %}
+</body>
