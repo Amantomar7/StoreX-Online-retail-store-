@@ -1,0 +1,12 @@
+1. login is for all given the user type option. (done)
+2. register first takes to User Type page then goes to respective register page
+   of the respective user. (done)
+3. now using store the main home page of the store which only logged in user can see(for only customer)
+4. thinking of store page will to some page which will aks for add to cart or buy then from there move to
+   the respective place
+5. for user after login go to store page and on nav bar show cart, account
+
+
+Things to do:
+   Most important is to give data from products table to the images section in store 
+   of the store page.

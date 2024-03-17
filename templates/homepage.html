@@ -10,9 +10,9 @@
     {% block main %}
 
     {% if session.get("user_id") != None and session.get("user_type")=='customer' %}
-        <h1 style="text-align: center;"><b>Hot-Picks for You</b></h1>
+        <h1 style="text-align: center;"><b>Some Picks for You</b></h1>
         <hr>
-        <p>Check out these latest suggestions from EBMS!</p>
+        <p>Check out these latest suggestions Using newly designed ML models</p>
 
         <div class="card-group" style="width: 100%;">
             {% for product in hot_picks %}
@@ -64,7 +64,7 @@
     </div>
 
     <br>
-    <p style="font-size: smaller; color:grey">Browse our entire product catalogue <a href="catalogue">here</a>.</p>
+    <p style="font-size: smaller; color:grey">Browse our entire product catalogue <a href="/store">here</a>.</p>
     <hr>
 
     <h2 style="text-align: left;"><b>About us</b></h2>

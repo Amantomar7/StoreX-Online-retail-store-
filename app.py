@@ -1,16 +1,20 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
 import mysql.connector
 from flask_mysqldb import MySQL
 app = Flask(__name__)
 
+# This key is for session which I have used to implement the user login feature
+app.secret_key = 'SecretKey'
 
+# This is sql connection 
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Aman",
-        database="schemaall"
+        host="localhost", 
+        user="----", #write user name here
+        password="----", #write password of mysql here
+        database="-----" #write database name here
     )
+
 
 @app.route('/hello')
 def hello_world():
@@ -21,6 +25,7 @@ def hello_world():
 def homepage():
     return render_template('homepage.html')
 
+#This is for register all type's of users
 @app.route('/register', methods = ['GET', 'POST'])
 def UserType():
     if(request.method == 'POST'):
@@ -52,14 +57,23 @@ def login():
         user = cursor.fetchone()
         cursor.close()
         conn.close()
+        # using connection here
         if user:
+            session['user_id'] = user[0]
+            session['user_type'] = User
             return redirect('/')
-        else :
+        else:
             return "wrong details"
     return render_template('login.html')
 
+#for logout when user is logged in
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
-# This is register Page
+
+# This is register Page for customer
 @app.route('/registerCustomer', methods = ['GET', 'POST'])
 def registerCustomer():
     if(request.method == 'POST'):
@@ -80,7 +94,7 @@ def registerCustomer():
         return redirect('/') #return to main site page
     return render_template('registerCustomer.html')
 
-# This is register Page
+# This is register Page for supplier
 @app.route('/registerSupplier', methods = ['GET', 'POST'])
 def registerSupplier():
     if(request.method == 'POST'):
@@ -99,7 +113,7 @@ def registerSupplier():
         return redirect('/')
     return render_template('registerSupplier.html')
 
-# This is register Page
+# This is register Page for delivery agent
 @app.route('/registerDeliveryAgent', methods = ['GET', 'POST'])
 def registerDeliveryAgent():
     if(request.method == 'POST'):
@@ -119,6 +133,32 @@ def registerDeliveryAgent():
         return redirect('/')
     return render_template('registerDeliveryAgent.html')
 
+#This is store where all product will be shown
+@app.route('/store')
+def store():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Product")  # Assuming your products table has a column named 'name'
+    products = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('store.html', products=products)
+
+#This is cart 
+@app.route('/cart')
+def cart():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Cart")  # Assuming your products table has a column named 'name'
+    products = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('cart.html', products=products)
+
+#This is choice page for buying or add to cart
+@app.route('/choice')
+def choice():
+    return render_template('choice.html')
 
 if __name__ == "__main__":
     app.run(debug = True)
