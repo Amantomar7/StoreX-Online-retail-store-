@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 # This key is for session which I have used to implement the user login feature
-app.secret_key = 'SecretKey'
+app.secret_key = '------' #write any name here but use that every time you use this!
 
 # This is sql connection 
 def get_connection():
@@ -12,7 +12,7 @@ def get_connection():
         host="localhost", 
         user="----", #write user name here
         password="----", #write password of mysql here
-        database="-----" #write database name here
+        database="------" #write database name here
     )
 
 
@@ -159,6 +159,19 @@ def cart():
 @app.route('/choice')
 def choice():
     return render_template('choice.html')
+
+@app.route('/account')
+def account():
+    if 'user_id' not in session:
+        return redirect('/login')  # Redirect to login if user is not logged in
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Customer WHERE CustomerID = %s", (session['user_id'],))
+    customer = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('account.html', customer=customer)
+
 
 if __name__ == "__main__":
     app.run(debug = True)

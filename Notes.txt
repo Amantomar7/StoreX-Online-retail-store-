@@ -9,4 +9,8 @@
 
 Things to do:
    Most important is to give data from products table to the images section in store 
-   of the store page.
+   of the store page. (done)
+
+   Now just need to work on remaining sql queries
+
+Accounts part is giving error, 
