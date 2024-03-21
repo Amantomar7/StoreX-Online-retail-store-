@@ -4,15 +4,15 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 # This key is for session which I have used to implement the user login feature
-app.secret_key = '------' #write any name here but use that every time you use this!
+app.secret_key = 'Secret_key' #write any name here but use that every time you use this!
 
 # This is sql connection 
 def get_connection():
     return mysql.connector.connect(
         host="localhost", 
-        user="----", #write user name here
-        password="----", #write password of mysql here
-        database="------" #write database name here
+        user="root", #write user name here
+        password="Aman", #write password of mysql here
+        database="schemaall" #write database name here
     )
 
 
