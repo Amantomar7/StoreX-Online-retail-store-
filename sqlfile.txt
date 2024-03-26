@@ -39,18 +39,6 @@ CREATE TABLE Supplier (
   Hash_Password varchar(255) NOT NULL
 );
 
-Select * from customer;
-DROP TABLe Supplier;
-DROP TABLe DeliveryAgent;
-
-
-Describe Supplier;
-Select * from Supplier;
-Select * from DeliveryAgent;
-
-Drop Table Category;
-Drop Table Product;
-
 CREATE TABLE Category (
   CategoryID int PRIMARY KEY auto_increment,
   CategoryName varchar(255) NOT NULL
@@ -71,8 +59,6 @@ CREATE TABLE Product (
 Insert into Category (CategoryName) Values("food");
 Insert into Product (ProductName, Price, CategoryID, ProductDescription, Quantity, SupplierID) VAlues("Biscuit", 100, 1, "healthy biscuit's", 1, 1);
 Insert into Product (ProductName, Price, CategoryID, ProductDescription, Quantity, SupplierID) VAlues("Biscuit1", 100, 1, "healthy biscuit's", 10, 1);
-
-Select * from Product;
 
 CREATE TABLE Cart (
   CartID int PRIMARY KEY AUTO_INCREMENT,
@@ -131,7 +117,6 @@ CREATE TABLE AgentReview (
   FOREIGN KEY (DeliveryID) REFERENCES DeliveryAgent(DeliveryID)  
 );
 
-Drop Table SystemAdmin;
 CREATE TABLE SystemAdmin (
   AdminID int PRIMARY KEY AUTO_INCREMENT,
   FirstName varchar(255) NOT NULL,

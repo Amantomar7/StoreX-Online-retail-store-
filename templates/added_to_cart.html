@@ -11,11 +11,11 @@
 <body>
   {% block main %}
     <div class="container">
-      <h1 class="text-center mx-auto">Buy</h1>
+      <h1 class="text-center mx-auto">Added to cart!</h1>
       <div class="row">
         <div class="col-md-8 mt-5 offset-md-5">
-          <form action="/purchased/{{product[0]}}" method="POST">
-            <button type="submit" class="btn btn-light mr-3">Pay</button>
+          <form action="/go_to_home" method="POST">
+            <button type="submit" class="btn btn-light mr-3">Move To Home</button>
           </form>
         </div>
       </div>

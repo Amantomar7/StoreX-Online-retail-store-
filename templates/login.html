@@ -14,16 +14,21 @@
       <h1>Login</h1>
       <form action="/login" method="POST">
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">User Type</label>
-          <input type="text" class="form-control" name="User Type" id="User Type" placeholder="Customer, Delivery Agent, Supplier" />
+          <label for="UserType" class="form-label">User Type</label>
+          <select class="form-control" name="UserType" id="UserType">
+            <option value="customer">Customer</option>
+            <option value="supplier">Supplier</option>
+            <option value="delivery_agent">Delivery Agent</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <label for="Email" class="form-label">Email</label>
           <input type="text" class="form-control" name="Email" id="Email" placeholder="Email" />
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-          <textarea class="form-control" name="Password" id="Password" rows="1"></textarea>
+          <label for="Password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="Password" id="Password" placeholder="Password" />
         </div>
         <button type="submit" class="btn btn-primary">LOG IN</button>
       </form>

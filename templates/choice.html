@@ -13,14 +13,14 @@
     <div class="container">
       <h1 class="text-center mx-auto">Choice</h1>
       <div class="row">
-        <div class="col-md-8 mt-4">
-          <form action="/add_to_cart" method="POST">
-            <button type="submit" class="btn btn-light mr-3">Add to Cart</button>
+        <div class="col-md-8 mt-5">
+          <form action="/buy_now/{{product[0]}}" method="POST">
+            <button type="submit" class="btn btn-primary">Proceed to Buy Now</button>
           </form>
         </div>
-        <div class="col-md-4 mt-4">
-          <form action="/buy_now" method="POST">
-            <button type="submit" class="btn btn-primary">Buy Now</button>
+        <div class="mt-5">
+          <form action="/added_to_cart/{{product[0]}}" method="POST">
+            <button type="submit" class="btn btn-primary">Add TO cart</button>
           </form>
         </div>
       </div>

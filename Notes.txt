@@ -13,4 +13,15 @@ Things to do:
 
    Now just need to work on remaining sql queries
 
-Accounts part is giving error, 
+Accounts part is giving error (done)
+
+More things to do-
+1. write some triggers (
+   2 triggers done 1 for delivery agent thier avalilability changes when order is made 
+   2nd for customer balance changes when product is buyed
+)
+2. make login more good 
+3. also some queries to manage inventory and customer (for this management making admin queries)
+
+
+Search bar is done
