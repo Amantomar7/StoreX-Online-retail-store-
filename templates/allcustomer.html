@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+<title>
+    {% block title %}Admin Dashboard{% endblock %}
+</title>
+
+<body>
+    {% block main %}
+        <h1><b>
+            Welcome back,
+            
+        </b></h1>
+        <br>
+
+        <table class="table" style="color: white;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">CustomerID</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">CustomerMembership</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for customer in all_Customer %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{customer[0]}}</td>
+                    <td>{{customer[1]}}</td>
+                    <td>{{customer[2]}}</td>
+                    <td>{{customer[3]}}</td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    {% endblock %}
+</body>

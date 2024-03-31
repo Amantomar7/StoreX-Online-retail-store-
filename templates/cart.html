@@ -12,18 +12,34 @@
   {% block main %}
     <div class="container">
       <h2>Products</h2>
-      <div class="row">
-        {% for product in products %}
-            <div class="col-md-4 mt-4"> <!-- Corrected typo from mt=4 to mt-4 -->
-              <form action="/choice" method="GET">
-                <button type="submit" class="btn btn-light">
-                  <div style="width: 200px; height: 200px; background-color: #ccc;"></div>
-                  {{ product[3] }}  <!-- Display product name and price -->
-                </button>
-              </form>
-            </div>
-        {% endfor %}
-      </div>
-    </div>
+      {% if products == [] %}
+      <p style="text-align: left;">Nothing in Cart!</p>
+      {% else %}
+      <table class="table" style="text-align: left; color: white;">
+        <thead>
+          <tr>
+            <th scope="col">SNO</th>
+            <th scope="col">Product Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in products %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ item[0] }}</td>
+              <td>{{ item[1] }}</td>
+              <td>{{ item[2] }}</td>
+              <td>{{ item[3] }}</td>
+              <td>
+                <a href="/buy_now/{{ item[0] }}" type="button" class="btn btn-success btn-sm mx-1">Buy Now</button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
   {% endblock %}
 </body>

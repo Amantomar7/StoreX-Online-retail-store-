@@ -25,3 +25,9 @@ More things to do-
 
 
 Search bar is done
+
+
+2 more things to do
+1. only can buy if balance is enough (done)
+2. quantity, now can only buy 1 product make it any number of quantity
+3. adding balance

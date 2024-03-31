@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+<title>
+    {% block title %}Admin Dashboard{% endblock %}
+</title>
+
+<body>
+    {% block main %}
+        <h1><b>
+            Welcome back,
+            
+        </b></h1>
+        <br>
+        <div class="card-group" style="width: 100%; display: flex; justify-content: space-between;">
+            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
+                <a class="card-link" href="/all_supplier">
+                    <h2><b>TOP Supplier's</b></h2>
+                    <p><br>All Supplier in the store<b>StoreX</b>.</p>
+                </a>
+            </div>
+        </div>
+        <br>
+    {% endblock %}
+</body>

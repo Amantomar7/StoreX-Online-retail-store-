@@ -11,11 +11,9 @@
             
         </b></h1>
         <br>
-        <p>No issues or bugs have been reported to our customer care in the past week.</p>
-        <br>
 
-        <div class="card-group" style="width: 100%;">
-            <div class="card" style="margin-right: 2rem;">
+        <div class="card-group" style="width: 100%; display: flex; justify-content: space-between;">
+            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/customerstats">
                     <h1 style="font-size: 72px;"><b>{{ customer_count }}+</b></h1>
                     <h2><b>Customers</b></h2>
@@ -23,7 +21,7 @@
                 </a>
             </div>
 
-            <div class="card" style="margin-right: 2rem;">
+            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/supplierstats">
                     <h1 style="font-size: 72px;"><b>{{ supplier_count }}+</b></h1>
                     <h2><b>Suppliers</b></h2>
@@ -31,7 +29,7 @@
                 </a>
             </div>
 
-            <div class="card" style="margin-right: 0px !important;">
+            <div class="card" style="margin-right: 0px !important; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/deliveryagentstats">
                     <h1 style="font-size: 72px;"><b>{{ deliveryAgent_count }}+</b></h1>
                     <h2><b>Delivery Agents</b></h2>
@@ -41,7 +39,7 @@
         </div>
 
         <div class="card-group" style="width: 100%;">
-            <div class="card" style="margin-right: 2rem;">
+            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/orderstats">
                     <h1 style="font-size: 72px;"><b>{{ order_count }}+</b></h1>
                     <h2><b>Orders</b></h2>
@@ -49,7 +47,7 @@
                 </a>
             </div>
 
-            <div class="card" style="margin-right: 0px !important;">
+            <div class="card" style="margin-right: 0px !important; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/productstats">
                     <h1 style="font-size: 72px;"><b>{{ product_count }}+</b></h1>
                     <h2><b>Products</b></h2>
@@ -57,8 +55,5 @@
                 </a>
             </div>
         </div>
-
-        <br>
-        <p style="text-align: left; color: gray; font-size: 95%;">*Click on a card to view more information.</p>
     {% endblock %}
 </body>

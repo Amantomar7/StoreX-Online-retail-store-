@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+<title>
+    {% block title %}Account{% endblock %}
+</title>
+
+<body>
+    {% block main %}
+        <h1><b>Welcome Back!!</b></h1>
+        <br>
+        <br>
+        <h2 style="text-align: left;"><b>Active Orders</b></h2>
+        <hr>
+        <h5>
+            You currently have 0 active orders.
+        </h5>
+
+        <br>
+        <br>
+        <h2 style="text-align: left;"><b>Delivered Orders</b></h2>
+        <hr>
+        <h5>
+            You have delivered 0 orders.
+        </h5>
+    {% endblock %}
+</body>

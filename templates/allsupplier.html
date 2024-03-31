@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+<title>
+    {% block title %}Admin Dashboard{% endblock %}
+</title>
+
+<body>
+    {% block main %}
+        <h1><b>
+            Welcome back,
+            
+        </b></h1>
+        <br>
+
+        <table class="table" style="color: white;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">SupplierID</th>
+                <th scope="col">SupplierName</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for supplier in all_Supplier %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{supplier[0]}}</td>
+                    <td>{{supplier[1]}}</td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        <br>
+    {% endblock %}
+</body>
