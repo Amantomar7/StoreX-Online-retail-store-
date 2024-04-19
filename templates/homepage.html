@@ -1,43 +1,36 @@
 {% extends 'base.html' %}
 
-<head>
-    <title>
-        {% block title %}Home{% endblock %}
-    </title>
-</head>
+{% block title %}
+    Home
+{% endblock %}
 
-<body>
-    {% block main %}
-
-
-    <h1 style="text-align: center;"><b>Our Products</b></h1>
-    <hr>
-    <p>Don't miss out on these Products</p>
-
-    <br>
-    <p style="font-size: smaller; color:grey">Browse our entire product catalogue <a href="/store">here</a>.</p>
-    <hr>
-
-    <h2 style="text-align: left;"><b>About us</b></h2>
-    <p dir="ltr" style="text-align: justify;">
-        Store for All items.
-        <br>
-        <br>
-        Shop's All sorts of items.
-    </p>
-    <hr>
-    <h3 style="text-align: left;"><b>Contact us</b></h3>
-    <div style="display: flex; justify-content: space-between;">
-        <div style="text-align: left;">
-            <u style="color: blue;"><a href="mailto:helpline@store.ac.in" style="margin-left: 2px;">helpline@store.ac.in</a></u>
+{% block main %}
+    <div class="container">
+        <h1 class="text-center mt-5"><b>Welcome to Our Store</b></h1>
+        <hr class="my-4">
+        <p class="text-center">Discover the finest selection of products</p>
+        <p class="text-center text-muted small">Explore our full collection <a href="/store" class="text-decoration-none">here</a>.</p>
+        <hr class="my-4">
+        <h2><b>About Us</b></h2>
+        <p class="text-justify">
+            At Our Store, we're passionate about providing you with the best shopping experience. 
+            We offer a curated selection of high-quality products ranging from electronics to fashion, all at competitive prices.
+            With our user-friendly platform and dedicated customer service, your satisfaction is our top priority.
+            Shop with confidence and discover the difference with Our Store today.
+        </p>
+        <hr class="my-4">
+        <h3><b>Contact Us</b></h3>
+        <div class="row justify-content-between">
+            <div class="col-md-4">
+                <p class="text-left"><u><a href="mailto:contact@store.com" class="text-decoration-none">contact@store.com</a></u></p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-center">+1 123-456-7890</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right">+1 987-654-3210</p>
+            </div>
         </div>
-        <div style="text-align: center;">
-            +91 123456789
-        </div>
-        <div style="text-align: right;">
-            +91 0987654321
-        </div>
+        <hr class="my-4">
     </div>
-    <hr>
-    {% endblock %}
-</body>
+{% endblock %}

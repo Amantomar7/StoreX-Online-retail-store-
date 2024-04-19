@@ -5,21 +5,81 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <!-- Flaticon Icons -->
+    <link href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+    
     <style>
-        .center {
-            margin: 0;
-            position: absolute;
-            left: 50%;
-            -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
-        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: black;
-            color: grey;
+            background-color: #f8f9fa; /* Light grey background */
+            color: #333; /* Dark grey text */
+        }
+        
+        .navbar {
+            background-color: #343a40 !important; /* Dark background for navbar */
+            border-bottom: 1px solid #dee2e6; /* Grey border */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow */
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #ffc107 !important; /* Yellow color for brand name */
+        }
+
+        .nav-link {
+            color: #fff !important; /* White color for nav links */
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important; /* Yellow color on hover */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Primary blue button color */
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3;
+        }
+
+        .btn-outline-primary {
+            color: #007bff; /* Blue outline button color */
+            border-color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            color: #fff; /* White text on hover */
+            background-color: #007bff; /* Blue background on hover */
+            border-color: #007bff;
+        }
+        
+        .container {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #007bff; /* Primary blue color */
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #666; /* Grey text color */
         }
     </style>
 
@@ -27,8 +87,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark border">
-        <a class="navbar-brand" href="/" style="font-weight: 700;">
+    <nav class="navbar navbar-expand-lg navbar-dark border">
+        <a class="navbar-brand" href="/">
             <span class="blue">&nbsp;S</span><span class="red">T</span><span class="yellow">O</span><span class="green">R</span><span class="green">E</span><span class="green">X</span>
         </a>
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
@@ -54,9 +114,7 @@
                 {% else %}
                 <li class="nav-item"><a class="btn btn-primary" href="/login"><span style="font-size:;">Log In</span></a></li>
                 {% endif %}
-
             </ul>
-            
         </div>
     </nav>
 

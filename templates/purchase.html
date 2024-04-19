@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 
-<head>
-  <title>
-    {% block title %}
-      Home
-    {% endblock %}
-  </title>
-</head>
+{% block title %}
+    Confirm Purchase
+{% endblock %}
 
-<body>
-  {% block main %}
+{% block main %}
     <div class="container">
-      <h1 class="text-center mx-auto">Buy</h1>
-      <div class="row">
-        <div class="col-md-8 mt-5 offset-md-5">
-          <form action="/purchased/{{product[0]}}" method="POST">
-            <button type="submit" class="btn btn-light mr-3">Pay</button>
-          </form>
+        <div class="jumbotron jumbotron-fluid bg-light p-5 rounded shadow-lg">
+            <h1 class="display-4 text-center mb-5" style="color: #333;">Confirm Purchase</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p class="lead text-center mb-4" style="font-size: 1.25rem;">You're about to complete your purchase. Are you ready?</p>
+                    <form action="/purchased/{{product[0]}}" method="POST">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" style="background-color: #007bff;">Proceed to Payment</button>
+                    </form>
+                    <hr class="my-4">
+                    <p class="text-center mb-0">Not ready yet? <a href="/store" style="color: #007bff; text-decoration: underline;">Continue Shopping</a></p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  {% endblock %}
-</body>
+{% endblock %}

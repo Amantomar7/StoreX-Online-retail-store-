@@ -2,6 +2,9 @@
 
 -- This is with data but not data about in some tables
 
+DROP DATABASE IF EXISTS schema_1;
+CREATE DATABASE schema_1;
+USE schema_1;
 
 CREATE TABLE Customer (
   CustomerID int PRIMARY KEY AUTO_INCREMENT,
@@ -55,10 +58,6 @@ CREATE TABLE Product (
   FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
   FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
 );
-
-Insert into Category (CategoryName) Values("food");
-Insert into Product (ProductName, Price, CategoryID, ProductDescription, Quantity, SupplierID) VAlues("Biscuit", 100, 1, "healthy biscuit's", 1, 1);
-Insert into Product (ProductName, Price, CategoryID, ProductDescription, Quantity, SupplierID) VAlues("Biscuit1", 100, 1, "healthy biscuit's", 10, 1);
 
 CREATE TABLE Cart (
   CartID int PRIMARY KEY AUTO_INCREMENT,
@@ -202,3 +201,16 @@ VALUES
 ('Neha', 'Rajput', 'adminhashedpassword3', 'admin3@email.com', '9449339223'),
 ('Rahul', 'Gupta', 'adminhashedpassword4', 'admin4@email.com', '9449339224'),
 ('Priya', 'Singh', 'adminhashedpassword5', 'admin5@email.com', '9449339225');
+
+Insert into Sells(SupplierID, ProductID, Quantity, PricePerProduct) 
+Values 
+(1, 1, 100, 20),
+(2, 2, 100, 30),
+(3, 3, 100, 20),
+(4, 4, 1234, 34),
+(5, 5, 123, 56.09),
+(6, 6, 234, 34.23),
+(7, 7, 23, 12.3),
+(8, 8, 10, 9.23),
+(9, 9, 100, 100.12),
+(10, 10, 100, 12.12);

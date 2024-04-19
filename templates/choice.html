@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 
-<head>
-  <title>
-    {% block title %}
-      Home
-    {% endblock %}
-  </title>
-</head>
+{% block title %}
+    Product Choice
+{% endblock %}
 
-<body>
-  {% block main %}
+{% block main %}
     <div class="container">
-      <h1 class="text-center mx-auto">Choice</h1>
-      <div class="row">
-        <div class="col-md-8 mt-5">
-          <form action="/buy_now/{{product[0]}}" method="POST">
-            <button type="submit" class="btn btn-primary">Proceed to Buy Now</button>
-          </form>
+        <div class="jumbotron jumbotron-fluid bg-light p-5 rounded">
+            <h1 class="display-4 text-center mb-5" style="color: black;">Product Choice</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form action="/buy_now/{{product[0]}}" method="POST">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Proceed to Buy Now</button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <form action="/added_to_cart/{{product[0]}}" method="POST">
+                        <button type="submit" class="btn btn-secondary btn-lg btn-block mb-3">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="mt-5">
-          <form action="/added_to_cart/{{product[0]}}" method="POST">
-            <button type="submit" class="btn btn-primary">Add TO cart</button>
-          </form>
-        </div>
-      </div>
     </div>
-  {% endblock %}
-</body>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+<head>
+  <title>
+    {% block title %}
+      Home
+    {% endblock %}
+  </title>
+</head>
+
+<body>
+  {% block main %}
+    <div class="container">
+      <h1>Rate our Product!</h1>
+      <form action="/addproductSupplier" method="POST">
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">ProductID</label>
+          <input type="text" class="form-control" name="product_id" id="product_id" placeholder="productID" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Quantity</label>
+          <input type="text" class="form-control" name="quantity" id="quantity" placeholder="How much quantity you want to add" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Price per Product</label>
+            <input type="text" class="form-control" name="price_per_product" id="price_per_product" placeholder="Price of one product" />
+          </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+  {% endblock %}
+</body>

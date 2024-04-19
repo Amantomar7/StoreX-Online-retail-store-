@@ -25,7 +25,7 @@
             <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
                 <a class="card-link" href="/supplierstats">
                     <h2><b>Top Gold Customer</b></h2>
-                    {% for G_Customer in gold_customer %}
+                    {% for customer in gold_customer %}
                         <p><b>{{ customer[1] }} {{ customer[2] }}</b>: Total Purchase Amount - ${{ customer[3] }}</p>
                     {% endfor %}
                 </a>

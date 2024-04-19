@@ -1,59 +1,72 @@
 {% extends 'base.html' %}
 
-<title>
-    {% block title %}Admin Dashboard{% endblock %}
-</title>
+{% block title %}
+    Admin Dashboard
+{% endblock %}
 
-<body>
-    {% block main %}
-        <h1><b>
-            Welcome back,
-            
-        </b></h1>
-        <br>
+{% block main %}
+    <div class="container">
+        <div class="jumbotron text-center mt-5">
+            <h1 class="display-4"><b>Welcome back,</b></h1>
+        </div>
 
-        <div class="card-group" style="width: 100%; display: flex; justify-content: space-between;">
-            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
-                <a class="card-link" href="/customerstats">
-                    <h1 style="font-size: 72px;"><b>{{ customer_count }}+</b></h1>
-                    <h2><b>Customers</b></h2>
-                    <p><br>are using <b>StoreX</b> for their electronics needs.</p>
-                </a>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card border-primary shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-1 text-primary"><b>{{ customer_count }}+</b></h1>
+                        <h3 class="card-title"><b>Customers</b></h3>
+                        <p class="card-text">are using <b>StoreX</b> for their electronics needs.</p>
+                        <a href="/customerstats" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
-                <a class="card-link" href="/supplierstats">
-                    <h1 style="font-size: 72px;"><b>{{ supplier_count }}+</b></h1>
-                    <h2><b>Suppliers</b></h2>
-                    <p><br>are supplying products to the <b>StoreX</b> warehouse.</p>
-                </a>
+            <div class="col-md-4 mb-4">
+                <div class="card border-success shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-1 text-success"><b>{{ supplier_count }}+</b></h1>
+                        <h3 class="card-title"><b>Suppliers</b></h3>
+                        <p class="card-text">are supplying products to the <b>StoreX</b> warehouse.</p>
+                        <a href="/supplierstats" class="btn btn-success">View Details</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="margin-right: 0px !important; flex: 1; margin-bottom: 2rem;">
-                <a class="card-link" href="/deliveryagentstats">
-                    <h1 style="font-size: 72px;"><b>{{ deliveryAgent_count }}+</b></h1>
-                    <h2><b>Delivery Agents</b></h2>
-                    <p><br>are helping <b>StoreX</b> deliver Products to Customers.</p>
-                </a>
+            <div class="col-md-4 mb-4">
+                <div class="card border-warning shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-1 text-warning"><b>{{ deliveryAgent_count }}+</b></h1>
+                        <h3 class="card-title"><b>Delivery Agents</b></h3>
+                        <p class="card-text">are helping <b>StoreX</b> deliver products to customers.</p>
+                        <a href="/deliveryagentstats" class="btn btn-warning">View Details</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card-group" style="width: 100%;">
-            <div class="card" style="margin-right: 2rem; flex: 1; margin-bottom: 2rem;">
-                <a class="card-link" href="/orderstats">
-                    <h1 style="font-size: 72px;"><b>{{ order_count }}+</b></h1>
-                    <h2><b>Orders</b></h2>
-                    <p><br>have been placed through through <b>StoreX</b>.</p>
-                </a>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card border-info shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-1 text-info"><b>{{ order_count }}+</b></h1>
+                        <h3 class="card-title"><b>Orders</b></h3>
+                        <p class="card-text">have been placed through <b>StoreX</b>.</p>
+                        <a href="/orderstats" class="btn btn-info">View Details</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="margin-right: 0px !important; flex: 1; margin-bottom: 2rem;">
-                <a class="card-link" href="/productstats">
-                    <h1 style="font-size: 72px;"><b>{{ product_count }}+</b></h1>
-                    <h2><b>Products</b></h2>
-                    <p><br>have been sold through through <b>StoreX</b>.</p>
-                </a>
+            <div class="col-md-6 mb-4">
+                <div class="card border-danger shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-1 text-danger"><b>{{ product_count }}+</b></h1>
+                        <h3 class="card-title"><b>Products</b></h3>
+                        <p class="card-text">have been sold through <b>StoreX</b>.</p>
+                        <a href="/productstats" class="btn btn-danger">View Details</a>
+                    </div>
+                </div>
             </div>
         </div>
-    {% endblock %}
-</body>
+    </div>
+{% endblock %}

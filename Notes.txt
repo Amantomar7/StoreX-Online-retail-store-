@@ -31,3 +31,18 @@ Search bar is done
 1. only can buy if balance is enough (done)
 2. quantity, now can only buy 1 product make it any number of quantity
 3. adding balance
+
+Now what to do is make rating system for product and delivery agent and make the system more proficient
+and also do something for transaction
+
+Also need to show quantity of product in realtime and 
+also do not let user buy product if quantity is less than 1
+ALso for parallel transaction will use some kind of lock
+
+
+Now to check make product delivered in 2 deliveryagentstats
+
+Add orderID in delivery review I can know for which order the deliver yagent has been given this review
+
+Many redundant things in the code will remove them when done
+Also, will make code good

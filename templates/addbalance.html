@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 
-<head>
-  <title>
-    {% block title %}
-      Home
-    {% endblock %}
-  </title>
-</head>
+{% block title %}
+    Add Balance
+{% endblock %}
 
-<body>
-  {% block main %}
+{% block main %}
     <div class="container">
-      <h1 class="text-center">Add Balance to your Wallet</h1>
-      <div class="row justify-content-center">
-        <div class="col-md-6 mt-5">
-          <form action="/account" method="POST">
-            <div class="form-group">
-              <label for="amount">Amount:</label>
-              <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+        <div class="jumbotron jumbotron-fluid bg-light p-5 rounded">
+            <h2 class="display-4 text-center mb-4">Add Balance to Your Wallet</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mt-5">
+                    <form action="/account" method="POST">
+                        <div class="form-group">
+                            <label for="amount" class="text-muted">Enter Amount:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-primary text-white">$</span>
+                                </div>
+                                <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter amount" aria-label="Enter amount" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block rounded-pill mt-3">Add Balance</button>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Add Balance</button>
-          </form>
         </div>
-      </div>
     </div>
-  {% endblock %}
-</body>
+{% endblock %}

@@ -1,26 +1,74 @@
 {% extends 'base.html' %}
 
 <title>
-    {% block title %}Account{% endblock %}
+  {% block title %}
+    Account
+  {% endblock %}
 </title>
 
 <body>
-    {% block main %}
-        <h1><b>Welcome Back!!</b></h1>
-        <br>
-        <br>
-        <h2 style="text-align: left;"><b>Active Orders</b></h2>
-        <hr>
-        <h5>
-            You currently have 0 active orders.
-        </h5>
+  {% block main %}
+    <h1><b>Welcome Back!!</b></h1>
+    <br />
+    <br />
+    <h2 style="text-align: left;"><b>Active Orders</b></h2>
+    <hr />
+    {% if active_products == [] %}
+      <p>There aren't any active delivery now!</p>
+    {% else %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">OrderID</th>
+            <th scope="col">ProductID</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">CustomerID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in products %}
+            <tr>
+              <td>{{ item[3] }}</td>
+              <td>{{ item[5] }}</td>
+              <td>{{ item[4] }}</td>
+              <td>{{ item[0] }}</td>
+              <td>{{ item[1] }}</td>
+              <td>{{ item[2] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
 
-        <br>
-        <br>
-        <h2 style="text-align: left;"><b>Delivered Orders</b></h2>
-        <hr>
-        <h5>
-            You have delivered 0 orders.
-        </h5>
-    {% endblock %}
+    <br />
+    <br />
+    <h2 style="text-align: left;"><b>Delivered Orders</b></h2>
+    <hr />
+    {% if products == [] %}
+      <p>There are no delivered products.</p>
+    {% else %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Delivery Date</th>
+            <th scope="col">Customer ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in delivered_orders %}
+            <tr>
+              <td>{{ item[0] }}</td>
+              <td>{{ item[1] }}</td>
+              <td>{{ item[2] }}</td>
+              <td>{{ item[3] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  {% endblock %}
 </body>

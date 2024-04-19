@@ -1,81 +1,78 @@
 {% extends 'base.html' %}
 
-<head>
-  <title>
-    {% block title %}
-      Home
-    {% endblock %}
-  </title>
-</head>
+{% block title %}
+    Account
+{% endblock %}
 
-<body>
-  {% block main %}
+{% block main %}
     <div class="container">
-      <h2>Welcome</h2>
-      <div class="row">
-            <div class="col-md-4 mt-4">
-              <form action="/choice" method="GET">
-                <button type="submit" class="btn btn-light">
-                  <div style="width: 200px; height: 200px; background-color: #ccc;"></div>
-                  {{ customer[1] }}
-                </button>
-              </form>
+        <div class="jumbotron jumbotron-fluid bg-light p-5 rounded">
+            <h2 class="display-4 text-center mb-4">Welcome, {{ customer[1] }}</h2>
+            <div class="row">
+                <div class="col-md-4 mt-4">
+                    <form action="/choice" method="GET">
+                        <button type="submit" class="btn btn-light btn-block border rounded-lg">
+                            <div class="bg-secondary p-4 rounded-lg">
+                                <span class="text-white">Your Avatar</span>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-8 mt-4">
+                    <div class="card bg-light border-0 rounded-lg p-4">
+                        <h3 class="mb-3">Your Details</h3>
+                        <p><b>Email:</b> {{ customer[3] }}</p>
+                        <p><b>Phone:</b> {{ customer[4] }}</p>
+                        <p><b>Balance:</b> ${{ customer[8] }}</p>
+                        <p><b>Address:</b> {{ customer[9] }}, {{ customer[10] }}</p>
+                    </div>
+                    <div class="text-right mt-4">
+                        <a href="/product/add" class="text-decoration-none">
+                            <button class="btn btn-success btn-lg rounded-pill mr-3">Change Profile</button>
+                        </a>
+                        <a href="/addbalance" class="text-decoration-none">
+                            <button class="btn btn-success btn-lg rounded-pill">Add Balance</button>
+                        </a>
+                    </div>
+                </div>
             </div>
-      </div>
-      <div class="add-margin" style="display: flex; justify-content: space-between; margin-bottom: 0px;">
-        <div style="text-align: left;">
-            <p style="text-align: left;">
-                <b>Details</b> <br>
-                Email: {{ customer[3] }}<br>
-                Phone: {{ customer[4] }}<br>
-                Balance: {{ customer[8] }}<br>
-                Address: {{ customer[9]}}, {{ customer[10] }}<br>
-            </p>
         </div>
-        <div style="text-align: right;">
-            <a href="/product/add">
-                <input type="hidden" class="action" value="add">
-                <button class="btn btn-success" style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px; width:12em">Change Profile</button>
-            </a>
-            <br>
+        <div class="mt-5">
+            <h3 class="mb-4">Product History</h3>
+            {% if product_history == [] %}
+                <p class="text-muted">You haven't bought anything yet.</p>
+            {% else %}
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Delivery Status</th>
+                            <th scope="col">Rate Product</th>
+                            <th scope="col">Rate Delivery</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in product_history %}
+                            <tr>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[6] }}</td>
+                                <td>{{ item[7] }}</td>
+                                <td>
+                                    <a href="/product_number/{{ item[0] }}" class="btn btn-primary btn-sm">rate now!</a>
+                                </td>
+                                <td>
+                                    <a href="/product_number_for_delivery/{{ item[0] }}" class="btn btn-primary btn-sm">rate now!</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
-        <div style="text-align: right;">
-          <a href="/addbalance">
-              <input type="hidden" class="action" value="add">
-              <button class="btn btn-success" style="margin-top: 10px; margin-bottom: 10px; margin-right: 10px; width:12em">Add Balance</button>
-          </a>
-          <br>
-      </div>
-
     </div>
-      <br>
-      <h3> Product History</h3>
-      {% if product_history == [] %}
-        <p style="text-align: left;">You haven't buyed anything yet.</p>
-      {% else %}
-      <table class="table table-striped table-hover table-bordered" style="text-align: left; color: white;">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Order Date</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Delivery Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in product_history %}
-            <tr>
-                <td>{{item[0]}}</td>
-                <td>{{item[1]}}</td>
-                <td>{{item[3]}}</td>
-                <td>{{item[6]}}</td>
-                <td>{{item[7]}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {%endif%}
-    </div>
-  {% endblock %}
-</body>
+{% endblock %}

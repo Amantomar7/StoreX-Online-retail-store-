@@ -12,20 +12,18 @@
         </b></h1>
         <br>
 
-        <table class="table" style="color: white;">
+        <table class="table" style="color: black;">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">DeliveryAgentID</th>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
                 <th scope="col">Availability</th>
               </tr>
             </thead>
             <tbody>
                 {% for deliveryagent in all_Deliveryagent %}
                 <tr>
-                    <th scope="row">{{loop.index}}</th>
                     <td>{{deliveryagent[0]}}</td>
                     <td>{{deliveryagent[1]}}</td>
                     <td>{{deliveryagent[2]}}</td>

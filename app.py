@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, request, session
 import mysql.connector
 from flask_mysqldb import MySQL
-from datetime import date
+from datetime import *
 app = Flask(__name__)
 
 # This key is for session which I have used to implement the user login feature
@@ -13,7 +13,7 @@ def get_connection():
         host="localhost", 
         user="root", #write user name here
         password="Aman", #write password of mysql here
-        database="schemaall" #write database name here
+        database="schema_1" #write database name here
     )
 
 
@@ -62,9 +62,11 @@ def login():
         conn.close()
         # using connection here
         if user:
+            # adding user in session for using who is logged in
             session['user_id'] = user[0]
             session['user_type'] = User
             
+            # redirecting respective user to respective page
             if(User == 'admin'):
                 return redirect('/admin')
             elif(User == 'supplier'):
@@ -82,7 +84,6 @@ def login():
 def logout():
     session.clear()
     return redirect('/')
-
 
 # This is register Page for customer
 @app.route('/registerCustomer', methods = ['GET', 'POST'])
@@ -161,7 +162,7 @@ def cart():
     conn = get_connection()
     cursor = conn.cursor()
     CustomerID = session['user_id']
-    cursor.execute("SELECT c.ProductID, p.ProductName, c.Quantity, (c.Quantity * p.Price) as Total_Cost FROM Cart as c, Product as p Where c.ProductID = p.ProductID AND c.CustomerID = %s", (CustomerID,)) 
+    cursor.execute("SELECT c.ProductID, p.ProductName, c.Quantity, (c.Quantity * p.Price) as Total_Cost, CartID FROM Cart as c, Product as p Where c.ProductID = p.ProductID AND c.CustomerID = %s", (CustomerID,)) 
     products = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -171,6 +172,8 @@ def cart():
 # comes here from store using product Id as parameter
 @app.route('/choice/<int:product_id>', methods=['GET'])
 def choice(product_id):
+    if 'user_id' not in session:
+        return redirect('/login')
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Product WHERE ProductID = %s", (product_id,))
@@ -184,14 +187,26 @@ def choice(product_id):
 def account():
     if 'user_id' not in session:
         return redirect('/login')  # Redirect to login if user is not logged in
-    
     conn = get_connection()
     cursor = conn.cursor(buffered=True)
     if request.method == 'POST':
         amount = request.form['amount']
         cursor.execute("UPDATE Customer Set Balance = Balance + %s WHERE CustomerID = %s", (amount, session['user_id']))
+        conn.commit()
     cursor.execute("SELECT * FROM Customer WHERE CustomerID = %s", (session['user_id'],))
     customer = cursor.fetchone()
+    # This commented part is for making item delivered after some time (namely 2 days)
+    # make product deliverd date type done or not
+    # cursor.execute("""SELECT OrderId, OrderDate FROM MakeOrder Where CustomerID = %s AND DeliveryDate is NULL""", (session['user_id'],))
+    # orders_of_user = cursor.fetchall()
+    # today_date = date.today()
+    
+    # # check this for deliverying of items later
+    # for i in range(len(orders_of_user)):
+    #     order_date = orders_of_user[i][1] + timedelta(days = 2)
+    #     if(order_date <= today_date):
+    #         cursor.execute("""UPDATE MakeOrder SET DeliveryDate = %s""", (order_date,))
+    #         conn.commit()
     cursor.execute("""SELECT
                         MakeOrder.orderID, MakeOrder.OrderDate, Makeorder.DeliveryDate,
                         Product.ProductName, MakeOrder.Quantity, Product.Price,
@@ -223,6 +238,8 @@ def addbalance():
 def buy_now(product_id):
     # this is customer ID session['user_id']
     # now need product Id which has been chosen 
+    if 'user_id' not in session:
+        return redirect('/login')
     conn = get_connection()
     cursor = conn.cursor(buffered=True)
     cursor.execute("SELECT * FROM Customer Where CustomerID = %s", (session['user_id'],))
@@ -249,6 +266,8 @@ def purchased(product_id):
         cursor.execute("INSERT INTO MAKEORDER (CustomerID, DeliveryID, ProductId, Quantity, OrderStatus, OrderDate) VALUES (%s, %s, %s, %s, %s, %s)",
                        (CustomerID, DeliveryID, product_id, 1, "Done", date.today()))
         conn.commit()
+        cursor.execute("UPDATE PRODUCT set Quantity = Quantity - %s", (1,))
+        conn.commit()
     print(DeliveryID)
     print(product_id)
     cursor.close()
@@ -264,6 +283,14 @@ def go_to_home():
     if(request.method == 'POST'):
         return redirect('/store')
     return render_template('thankyou.html')
+
+# for removing item in product
+@app.route('/remove/<int:product_id>', methods = ['GET', 'POST'])
+def remove(product_id):
+    conn = get_connection()
+    cursor = conn.cursor(buffered = True)
+    cursor.execute("DELETE from CART Where CartID = %s", (product_id,))
+    return render_template('cart.html', product_id=product_id)
 
 
 # checcking for searched item's
@@ -419,7 +446,8 @@ def delivery_stats():
     return render_template('deliveryagentstats.html')
 
 
-# let's make a page for supplier to add product into the 
+# let's make a page for supplier to add product into the
+# there is problem with this function 
 @app.route('/supplier')
 def supplier():
     conn = get_connection()
@@ -438,20 +466,55 @@ def supplier():
     conn.close()
     return render_template('supplier.html', user = user, products = products)
 
+@app.route('/getSupplier', methods = ['POST', 'GET'])
+def getSupplier():
+    return render_template('addproductSupplier.html')
+    
+
+@app.route('/addproductSupplier', methods = ['POST', 'GET'])
+def addproductSupplier():
+    if(request.method == 'POST'):
+        supplier_id = session['user_id']
+        product_id = request.form['product_id']
+        quantity = request.form['quantity']
+        priceper_product = request.form['price_per_product']
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""SELECT count(*) FROM SELLS WHERE SupplierId = %s AND ProductId = %s""", (supplier_id, product_id))
+        have = cursor.fetchall()[0][0]
+        print(have)
+        if(have):
+            cursor.execute("""UPDATE SELLS SET Quantity = Quantity + %s, PricePerProduct = %s WHERE SupplierId = %s AND ProductID + %s""", (quantity, priceper_product, supplier_id, product_id))
+            conn.commit()
+        else :
+            cursor.execute("""INSERT INTO SELLS (SupplierID, ProductID, Quantity, PricePerProduct) VALUES(%s, %s, %s, %s)""", (supplier_id, product_id, quantity, priceper_product))
+            conn.commit()
+        # making change in the product table as well
+        cursor.execute("""UPDATE Product SET Quantity = Quantity + %s WHERE ProductID = %s AND SupplierID = %s""", (quantity, product_id, supplier_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        
+    return render_template('thanksforsupplier.html')
+
 # this is for home page for delivery agent
 @app.route('/deliveryagent')
 def deliveryagent():
     conn = get_connection()
-    cursor = conn.cursor(buffered = True)
-    # query for getting all orders
-    cursor.execute("""SELECT * FROM DeliveryAgent Where DeliveryID = %s""", (session['user_id'],))
-    orders = cursor.fetchone()
-    # query for all delivered orders
-    cursor.execute("""SELECT * FROM SELLS WHERE SupplierID = %s""", (session['user_id'],))
-    completed_orders = cursor.fetchall()
+    cursor = conn.cursor(buffered=True)
+    cursor.execute("""SELECT c.CustomerID, CONCAT(c.FirstName, " ", c.LastName) as CustomerName, c.Phone, o.OrderID, o.OrderDate, o.ProductID
+                        FROM 
+                            MakeOrder as o
+                        INNER JOIN
+                            Customer as c
+                        Where 
+                            c.CustomerID = o.CustomerID AND o.DeliveryID = %s""", (session['user_id'],))
+    active_orders = cursor.fetchall()
+    cursor.execute("""SELECT OrderID, ProductID, DeliveryDate, CustomerID FROM MakeOrder WHERE DeliveryID = %s AND DeliveryDate IS NOT NULL""", (session['user_id'],))
+    delivered_orders = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('deliveryagent.html')
+    return render_template('deliveryagent.html', active_orders = active_orders, delivered_orders = delivered_orders)
 
 @app.route('/all_customer')
 def all_customer():
@@ -487,7 +550,12 @@ def all_products():
 def all_deliveryagent():
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("""SELECT * FROM DeliveryAgent""")
+    cursor.execute("""SELECT DeliveryID, CONCAT(FirstName, " ", LastName) as Name, Email, 
+                        CASE
+                            WHEN Availability = %s THEN %s
+                            ELSE %s
+                        END AS Avail
+                   FROM DeliveryAgent""", (1, 'Available', 'Not Available'))
     all_Deliveryagent = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -506,6 +574,67 @@ def all_orders():
     cursor.close()
     conn.close()
     return render_template('all_orders.html', all_Orders = all_Orders)
+
+# this is for getting product number into the product_review function
+@app.route('/product_number/<int:order_id>', methods = ['POST', 'GET'])
+def product_number(order_id):
+    print(order_id)
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * From MakeOrder Where OrderID = %s""", (order_id,))
+    order = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return render_template('productreview.html', order = order)
+
+@app.route('/product_number_for_delivery/<int:order_id>', methods = ['POST', 'GET'])
+def product_number_for_delivery(order_id):
+    print(order_id)
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * From MakeOrder Where OrderID = %s""", (order_id,))
+    order = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return render_template('deliveryreview.html', order = order)
+
+
+
+# for inserting review of product into the table
+@app.route('/product_review/<int:order_id>', methods = ['POST', 'GET'])
+def product_review(order_id):
+    if(request.method == 'POST'):
+        Rating = request.form['Rating']
+        Desc = request.form['Desc']
+        customerID = session['user_id']
+        conn = get_connection()
+        cursor = conn.cursor()
+        # insert into the rating table
+        cursor.execute("""SELECT ProductID from MAKEORDER WHERE OrderID = %s""", (order_id,))
+        product_id = cursor.fetchone()[0]
+        cursor.execute("""INSERT INTO PRODUCTREVIEW (CustomerID, ProductID, Rating, ReviewComment, DateofReview) VALUES(%s, %s, %s, %s, %s)""", (customerID, product_id, Rating, Desc, date.today()))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    return render_template('thanks.html')
+
+# for inserting review of product into the table
+@app.route('/delivery_review/<int:order_id>', methods = ['POST', 'GET'])
+def delivery_review(order_id):
+    if(request.method == 'POST'):
+        Rating = request.form['Rating']
+        Desc = request.form['Desc']
+        customerID = session['user_id']
+        conn = get_connection()
+        cursor = conn.cursor()
+        # insert into the rating table
+        cursor.execute("""SELECT DeliveryID from MAKEORDER WHERE OrderID = %s""", (order_id,))
+        delivery_id = cursor.fetchone()[0]
+        cursor.execute("""INSERT INTO AgentReview (CustomerID, DeliveryID, Rating, Content, ReviewDate) VALUES(%s, %s, %s, %s, %s)""", (customerID, delivery_id, Rating, Desc, date.today()))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    return render_template('thanks.html')
 
 
 if __name__ == "__main__":
