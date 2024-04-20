@@ -15,22 +15,19 @@
         <table class="table" style="color: black;">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">OrderID</th>
                 <th scope="col">CustomerID</th>
                 <th scope="col">ProductID</th>
                 <th scope="col">DeliveryID</th>
                 <th scope="col">ProductName</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
+                <th scope="col">Total Price</th>
                 <th scope="col">Order Date</th>
-                <th scope="col">Order Status</th>
               </tr>
             </thead>
             <tbody>
                 {% for item in all_Orders %}
                 <tr>
-                    <th scope="row">{{loop.index}}</th>
                     <td>{{item[0]}}</td>
                     <td>{{item[1]}}</td>
                     <td>{{item[2]}}</td>
@@ -39,7 +36,6 @@
                     <td>{{item[4]}}</td>
                     <td>{{item[8]}}</td>
                     <td>{{item[6]}}</td>
-                    <td>{{item[5]}}</td>
                     
                   </tr>
                 {% endfor %}

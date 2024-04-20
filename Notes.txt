@@ -35,14 +35,22 @@ Search bar is done
 Now what to do is make rating system for product and delivery agent and make the system more proficient
 and also do something for transaction
 
+
+Working on these two now
 Also need to show quantity of product in realtime and 
 also do not let user buy product if quantity is less than 1
+
+Now to check make product delivered in 2 deliveryagentstats (adding)
+
 ALso for parallel transaction will use some kind of lock
 
-
-Now to check make product delivered in 2 deliveryagentstats
-
-Add orderID in delivery review I can know for which order the deliver yagent has been given this review
+Add orderID in delivery review I can know for which order the deliver yagent has been given this review (done)
 
 Many redundant things in the code will remove them when done
 Also, will make code good
+
+Just just remains locking mechanism
+
+
+make the dates work(done)
+make delivery agent availabilty to 0(done)

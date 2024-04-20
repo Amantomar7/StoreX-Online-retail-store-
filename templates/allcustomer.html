@@ -15,21 +15,25 @@
         <table class="table" style="color: black;">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">CustomerID</th>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
-                <th scope="col">CustomerMembership</th>
+                <th scope="col">Name</th>
+                <th scope="col">Membership</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Remove</th>
               </tr>
             </thead>
             <tbody>
                 {% for customer in all_Customer %}
                 <tr>
-                    <th scope="row">{{loop.index}}</th>
                     <td>{{customer[0]}}</td>
                     <td>{{customer[1]}}</td>
                     <td>{{customer[2]}}</td>
                     <td>{{customer[3]}}</td>
+                    <td>{{customer[4]}}</td>
+                    <td>
+                      <a href="/removecustomer/{{customer[0]}}" class="btn btn-primary btn-sm">remove</a>
+                  </td>
                   </tr>
                 {% endfor %}
             </tbody>

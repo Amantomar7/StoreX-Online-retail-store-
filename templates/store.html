@@ -16,7 +16,7 @@
         {% for product in products %}
           {% if product[5] > 0 %}
             <div class="col-md-4 mt-4">
-              <form action="/choice/{{ product[0] }}" method="GET">
+              <form action="/product_details/{{ product[0] }}" method="GET">
                 <button type="submit" class="btn btn-light">
                   <div style="width: 200px; height: 200px; background-color: #ccc;"></div>
                   {{ product[1] }}  ₹.{{product[2]}} <!-- Display product name and price -->
