@@ -2,7 +2,9 @@ from flask import Flask, render_template, redirect, request, session
 import mysql.connector
 from flask_mysqldb import MySQL
 from datetime import *
-import threading
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
 app = Flask(__name__)
 
 # This key is for session which I have used to implement the user login feature
@@ -781,6 +783,58 @@ def delivery_review(order_id):
         cursor.close()
         conn.close()
     return render_template('thanks.html')
+
+
+def preprocess(df):
+    df['tags'] = df['ProductDesc'] + df['Category']
+    df = df.drop(columns = ['ProductDesc', 'Category'])
+    df['tags'] = df['tags'].apply(lambda x : " ".join(x))
+    return df
+
+# function that return reocmmended product
+def recommend(product, final, similarity):
+    products = []
+    for productName in product:
+        index = final[final['ProductName'] == productName[0]].index[0]
+        distances = sorted(list(enumerate(similarity[index])),reverse=True,key = lambda x: x[1])
+        for i in distances[1:3]:
+            products.append((final.iloc[i[0]].ProductID, final.iloc[i[0]].ProductName))
+    products = list(set(products))
+    return products
+
+# showing thr recommended product on site
+@app.route('/recommend')
+def ProductRecommend():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""SELECT ProductID, ProductName, ProductDescription, (SELECT CategoryName From Category Where Category.CategoryID = Product.CategoryID) as Category FROM Product""")
+    ProductDetails = cursor.fetchall()
+    df = pd.DataFrame(ProductDetails, columns = ['ProductID', 'ProductName', 'ProductDesc', 'Category'])
+    df['tags'] = df['ProductDesc'] + df['Category']
+    df = df.drop(columns = ['ProductDesc', 'Category'])
+    cv = CountVectorizer(max_features=100, stop_words='english')
+    vec = cv.fit_transform(df['tags']).toarray()
+    similarity = cosine_similarity(vec)
+    cursor.execute("""
+        SELECT p.ProductName 
+        FROM 
+            Product as p
+        INNER JOIN
+            MakeOrder as o
+        Where 
+            o.productID = p.productID AND o.customerID = %s
+            """, (session['user_id'],))
+    CustomerProducts = cursor.fetchall()
+    CustomerProducts = list(CustomerProducts)
+    # print(CustomerProducts[0][0])
+    # products = recommend(CustomerProducts, df, similarity)
+    Products = recommend(CustomerProducts, df, similarity)
+    # print(Products)
+    cursor.close()
+    conn.close()
+    return render_template('recommend_products.html', Products = Products)
+
+
 
 
 if __name__ == "__main__":

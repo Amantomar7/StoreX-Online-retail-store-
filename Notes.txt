@@ -54,3 +54,23 @@ Just just remains locking mechanism
 
 make the dates work(done)
 make delivery agent availabilty to 0(done)
+
+
+-------------------------------------------------------------------------------------------
+Now first is put some good rated products on the homepage 
+
+2nd is recommend some product based on person's history(content based) and collaborative filtering means
+checking what same type of users are buying
+Will do this in parts:
+1. Content based recommender system
+techniques I can use 
+   1. Cosine similarity
+   2. KNN 
+
+2. Collaborative based filtering 
+techniques I can use
+   1. can use K means clustering
+   2. KNN
+   3. Can use cosine sililarity
+
+thinking of using all three algo 

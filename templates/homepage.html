@@ -10,6 +10,10 @@
         <hr class="my-4">
         <p class="text-center">Discover the finest selection of products</p>
         <p class="text-center text-muted small">Explore our full collection <a href="/store" class="text-decoration-none">here</a>.</p>
+        {% if session['user_id'] %}
+        <p class="text-center text-muted small">Recommended Products for You <a href="/recommend" class="text-decoration-none">here</a>.</p>
+        {% endif %}
+        
         <hr class="my-4">
         <h2><b>About Us</b></h2>
         <p class="text-justify">
