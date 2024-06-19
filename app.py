@@ -269,10 +269,13 @@ def buy_now(product_id):
     product = cursor.fetchone() 
     cursor.close()
     conn.close()
-    if(product[5] <= 0):
+    Quantity = product[5]
+    if(Quantity <= 0):
         return "NOT IN STOCK!"
     # checking for enough balance 
-    if(customer[8] < product[2]):
+    Balance = customer[8]
+    Price = product[2]
+    if(Balance < Price):
         return "Not enough Balance GO to Account's"
     return render_template('purchase.html', product=product)
 
