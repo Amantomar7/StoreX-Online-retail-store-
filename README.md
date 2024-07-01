@@ -1,7 +1,3 @@
-Here's a well-structured README for your GitHub project:
-
----
-
 # StoreX Online Retail Store
 
 StoreX is an online retail store project developed using MySQL, Python, Flask, and sklearn. The project aims to provide a functional online retail store with a content-based recommender system.
