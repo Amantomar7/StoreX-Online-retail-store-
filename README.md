@@ -74,5 +74,3 @@ This project is licensed under the MIT License.
 - Thanks to the contributors of Flask, sklearn, and other open-source libraries used in this project.
 
 ---
-
-Feel free to customize this README to better fit your project's specifics.
